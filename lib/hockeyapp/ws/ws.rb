@@ -112,7 +112,7 @@ module HockeyApp
           :custom_release_type => options[:custom_release_type],
           :icon => options[:icon],
           :private => options[:private],
-          :owner_id => [:owner_id]
+          :owner_id => options[:owner_id]
 
       }
       self.class.post "/apps/new", :body => params
