@@ -102,5 +102,15 @@ module HockeyApp
       }
       self.class.post "/apps", :body => params
     end
+
+    def create_new_app title, bundle_id, options = {}
+      params = {
+          :title => title,
+          :bundle_identifier => bundle_id,
+          :platform => options[:platform],
+          :custom_release_type => options[:custom_release_type]
+      }
+      self.class.post "/apps/new", :body => params
+    end
   end
 end

@@ -149,5 +149,14 @@ describe HockeyApp::Client do
         client.create_app(binary_file).should be_kind_of ::HockeyApp::App
       end
     end
+
+    describe "new_app" do
+      it "returns an App object" do
+        title = double('title')
+        bundle_id = double('bundle_id')
+        client.new_app(title, bundle_id).should be_kind_of ::HockeyApp::App
+      end
+    end
+
   end
 end
