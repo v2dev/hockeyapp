@@ -154,7 +154,8 @@ describe HockeyApp::Client do
       it "returns an App object" do
         title = double('title')
         bundle_id = double('bundle_id')
-        client.new_app(title, bundle_id).should be_kind_of ::HockeyApp::App
+        params = double('params', :platform => 'platform', :release_type => 'release_type', :custom_release_type => 'custom_release_type', :icon => 'icon_path', :private => true, :owner_id => 'owner_id')
+        client.new_app(title, bundle_id, params).should be_kind_of ::HockeyApp::App
       end
     end
 
