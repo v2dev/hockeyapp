@@ -72,7 +72,6 @@ module HockeyApp
     def new_app title, bundle_id, options = {}
       accepted_formats = [".png", ".gif", ".jpeg"]
       icon_path = options[:icon]
-      raise "Image not found at #{icon_path}" unless File.exists? icon_path
       raise "Image format with #{File.extname(icon_path)} extension not supported" unless accepted_formats.include? File.extname(icon_path)
       options[:icon] = File.open(icon_path, "rb")
       resp = ws.create_new_app(title, bundle_id, options)
