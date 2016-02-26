@@ -104,6 +104,18 @@ module HockeyApp
     end
 
     def create_new_app title, bundle_id, options = {}
+      options[:platform] ||= "iOS"
+      options[:release_type] ||= 0
+      options[:custom_release_type] ||= ""
+      options[:icon] ||= ""
+      options[:private] = options[:private] == false ? false : true
+      options[:owner_id] ||= ""
+      unless options[:icon] == ""
+        icon_path = options[:icon]
+        accepted_formats = [".png", ".gif", ".jpeg"]
+        raise "Image format with #{File.extname(icon_path)} extension not supported" unless accepted_formats.include? File.extname(icon_path)
+        options[:icon] = File.open(icon_path, "rb")
+      end
       params = {
           :title => title,
           :bundle_identifier => bundle_id,
@@ -113,9 +125,9 @@ module HockeyApp
           :icon => options[:icon],
           :private => options[:private],
           :owner_id => options[:owner_id]
-
-      }
+        }
       self.class.post "/apps/new", :body => params
     end
+
   end
 end
