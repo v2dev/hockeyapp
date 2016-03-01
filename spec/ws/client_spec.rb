@@ -9,7 +9,7 @@ describe HockeyApp::Client do
     let(:client) {HockeyApp::Client.new(ws)}
     let(:app) {HockeyApp::App.from_hash({"public_identifier" => "1234567890abcdef1234567890abcdef"}, client)}
     let(:crash){HockeyApp::Crash.from_hash({"id" => "123456789", "has_description" => true, "has_log" => true}, app, client)}
-    let(:client_object) {HockeyApp::Client.new(HockeyApp::WS.new(:token => "6bb1a31f11904d4f99830ba0f42a70fb"))}
+    let(:client_object) {HockeyApp::Client.new(HockeyApp::WS.new(:token => "6bb1a31f11904d4f99830ba0f42a70fb"))} #Pass token with full access
 
 
     describe "#get_apps" do
@@ -162,28 +162,28 @@ describe HockeyApp::Client do
       it "raises error when incorrect path of image is passed" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:icon => "/home/chetan/Downloads/icon/ico.png"}
+        params = {:icon => "/tmp/icon.png"} #any improper path
         expect { client_object.new_app(title, bundle_id, params) }.to raise_error
       end
 
-      it "raises error when image passed is not of correct format" do
+      it "raises error when image passed is not of formats ['.png', '.jpeg', '.gif']" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:icon => "/home/chetan/Downloads/icon/power.ico"}
+        params = {:icon => File.join(ENV['HOME'] + "/Downloads/icon.ico")} #path with incorrect image format
         expect { client_object.new_app(title, bundle_id, params) }.to raise_error
       end
 
       it "raises error when platform passed is other than ['Android', 'iOS', 'Windows Phone', 'Mac OS', 'Custom']" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:platform => 'platform'}
+        params = {:platform => 'platform'}  #incorrect platform
         expect { client_object.new_app(title, bundle_id, params) }.to raise_error
       end
 
       it "returns an App object" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:platform => 'iOS', :release_type => 1, :custom_release_type => "custom", :icon => "/home/chetan/Downloads/icon/icon.png", :private => true, :owner_id => "9adc0915100bf5ea1d7"}
+        params = {:platform => 'iOS', :release_type => 1, :custom_release_type => "custom", :icon => File.join(ENV['HOME'] + "/Downloads/icon.png"), :private => true, :owner_id => "9adc0915100bf5ea1d7"}
         client_object.new_app(title, bundle_id, params).should be_kind_of ::HockeyApp::App
       end
     end
