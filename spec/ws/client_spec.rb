@@ -183,7 +183,7 @@ describe HockeyApp::Client do
       it "returns an App object" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:platform => 'iOS', :release_type => 'release', :custom_release_type => "custom", :icon => "/home/chetan/Downloads/icon/icon.png", :private => true, :owner_id => "owner_id"}
+        params = {:platform => 'iOS', :release_type => 1, :custom_release_type => "custom", :icon => "/home/chetan/Downloads/icon/icon.png", :private => true, :owner_id => "9adc0915100bf5ea1d7"}
         client_object.new_app(title, bundle_id, params).should be_kind_of ::HockeyApp::App
       end
     end
