@@ -1,7 +1,6 @@
 require_relative '../../spec/support/rspec_helper'
 require 'tempfile'
 
-
 describe HockeyApp::Client do
   context "when there are valid responses" do
 
@@ -169,7 +168,7 @@ describe HockeyApp::Client do
       it "raises error when image passed is not of formats ['.png', '.jpeg', '.gif']" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:icon => File.join(ENV['HOME'] + "/Downloads/icon.ico")} #path with incorrect image format
+        params = {:icon => File.join(__dir__, "../../spec/icons/icon.ico")} #path with incorrect image format
         expect { client_object.new_app(title, bundle_id, params) }.to raise_error
       end
 
@@ -183,7 +182,7 @@ describe HockeyApp::Client do
       it "returns an App object" do
         title = 'title'
         bundle_id = 'bundle_id'
-        params = {:platform => 'iOS', :release_type => 1, :custom_release_type => "custom", :icon => File.join(ENV['HOME'] + "/Downloads/icon.png"), :private => true, :owner_id => "9adc0915100bf5ea1d7"}
+        params = {:platform => 'iOS', :release_type => 1, :custom_release_type => "custom", :icon => File.join(__dir__, "../../spec/icons/icon.png"), :private => true, :owner_id => "9adc0915100bf5ea1d7"}
         client_object.new_app(title, bundle_id, params).should be_kind_of ::HockeyApp::App
       end
     end
