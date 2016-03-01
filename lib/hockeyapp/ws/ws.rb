@@ -102,5 +102,17 @@ module HockeyApp
       }
       self.class.post "/apps", :body => params
     end
+
+    def create_new_app title, bundle_id, options = {}
+      unless options[:icon].nil?
+        icon_path = options[:icon]
+        accepted_formats = [".png", ".gif", ".jpeg"]
+        raise "Image format with #{File.extname(icon_path)} extension not supported" unless accepted_formats.include? File.extname(icon_path)
+        options[:icon] = File.open(icon_path, "rb")
+      end
+      options.merge!(:title => title, :bundle_identifier => bundle_id)
+      self.class.post "/apps/new", :body => options
+    end
+    
   end
 end
